@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="ajax.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Demand Note - Raiban Electrical Solutions</title>
+  
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Common Stylesheet -->
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- Header (Navbar) will be loaded here -->
+  <div id="header-placeholder"></div>
+
+  <!-- Page Content -->
+  <div class="container my-5">
+
+    <!-- Header Row -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+      <a href="Store_dashboard.php" class="btn btn-dark">
+        <i class="fas fa-arrow-left me-2"></i> Back
+      </a>
+      <h2 class="page-title m-0 text-center flex-grow-1">
+        <i class="fas fa-file-signature"></i> Raise Demand Note
+      </h2>
+      <div>
+        <a href="view_demand_note.php" class="btn btn-dark">View Demand Notes List</a>
+      </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="alert alert-success d-none" role="alert">
+      ✅ Demand Note successfully recorded!
+    </div>
+
+    <!-- Demand Note Form -->
+    <div class="form-card p-4 shadow rounded-3">
+      <form action="save_demand.php" method="POST" id="demandForm">
+
+        <!-- Store Incharge + Site Name -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label"><i class="fas fa-user-tie me-2"></i>Store Incharge</label>
+            <input type="text" class="form-control" name="storeIncharge" id="storeIncharge" placeholder="Enter Store Incharge Name" required autocomplete="off">
+            <div id="storeInchargeSuggestions" class="list-group position-absolute w-100"></div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="fas fa-building me-2"></i>Site Name</label>
+            <input type="text" class="form-control" name="siteName" id="siteName" placeholder="Enter Site Name" autocomplete="off">
+            <div id="siteNameSuggestions" class="list-group position-absolute w-100"></div>
+          </div>
+        </div>
+
+        <!-- Site Incharge + Supervisor -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label"><i class="fas fa-user-check me-2"></i>Site Incharge</label>
+            <input type="text" class="form-control" name="siteIncharge" id="siteIncharge" placeholder="Enter Site Incharge Name" autocomplete="off">
+            <div id="siteInchargeSuggestions" class="list-group position-absolute w-100"></div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="fas fa-user-cog me-2"></i>Site Supervisor</label>
+            <input type="text" class="form-control" name="siteSupervisor" id="siteSupervisor" placeholder="Enter Site Supervisor Name" required autocomplete="off">
+            <div id="siteSupervisorSuggestions" class="list-group position-absolute w-100"></div>
+          </div>
+        </div>
+
+        <!-- Contractor + Circle -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label"><i class="fas fa-user me-2"></i>Contractor Name</label>
+            <input type="text" class="form-control" name="contractor" id="contractor" placeholder="Enter Contractor Name" required autocomplete="off">
+            <div id="contractorSuggestions" class="list-group position-absolute w-100"></div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="fas fa-circle me-2"></i>Name of Circle</label>
+            <input type="text" class="form-control" name="circle" id="circle" placeholder="Enter Name of Circle" required>
+          </div>
+        </div>
+
+        <!-- Division + Sub Division -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label"><i class="fas fa-building me-2"></i>Name of Division</label>
+            <input type="text" class="form-control" name="division" id="division" placeholder="Enter Name of Division" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="fas fa-sitemap me-2"></i>Name of Sub Division</label>
+            <input type="text" class="form-control" name="subDivision" id="subDivision" placeholder="Enter Name of sub division" required>
+          </div>
+        </div>
+
+        <!-- Section + Location -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label"><i class="fas fa-layer-group me-2"></i>Name of Section</label>
+            <input type="text" class="form-control" name="sectionName" id="sectionName" placeholder="Enter Name of Section" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="fas fa-map-marker-alt me-2"></i> Location</label>
+            <input type="text" class="form-control" name="location" id="location" placeholder="Enter Location" required>
+          </div>
+        </div>
+
+        <!-- Material Code + Name (⚠️ no auto-fill unit) -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label"><i class="fas fa-barcode me-2"></i>Material Code</label>
+            <input type="text" class="form-control" id="materialCode" placeholder="Enter Material Code" autocomplete="off">
+            <div id="materialCodeSuggestions" class="list-group position-absolute w-100"></div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="fas fa-box me-2"></i>Material Name</label>
+            <input type="text" class="form-control" id="materialName" placeholder="Enter Material Name" autocomplete="off">
+            <div id="materialNameSuggestions" class="list-group position-absolute w-100"></div>
+          </div>
+        </div>
+
+        <!-- Unit (manual) + Quantity -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label"><i class="fas fa-ruler me-2"></i>Material Unit</label>
+            <input type="text" class="form-control" id="materialUnit" placeholder="Enter Material Unit">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label"><i class="fas fa-sort-numeric-up me-2"></i>Material Quantity</label>
+            <input type="number" class="form-control" id="materialQuantity" placeholder="Enter Material Quantity">
+          </div>
+        </div>
+
+        <!-- Remarks -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <label class="form-label"><i class="fas fa-comment-dots me-2"></i>Remarks</label>
+            <textarea class="form-control" id="remarks" name="remarks" rows="3" placeholder="Enter Remarks"></textarea>
+          </div>
+        </div>
+
+        <!-- Add Items Button -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <button type="button" id="additemBtn" class="btn btn-success w-100">
+              <i class="fas fa-plus-circle me-2"></i> Add Item
+            </button>
+          </div>
+        </div>
+
+        <!-- Items Table -->
+        <div class="table-responsive mb-3">
+          <table class="table table-bordered text-center align-middle" id="scrapTable">
+            <thead class="table-light">
+              <tr>
+                <th>Sr.No</th>
+                <th>Material Code</th>
+                <th>Material Name</th>
+                <th>Unit</th>
+                <th>Quantity</th>
+                <th>Remarks</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <!-- Hidden Field for Items -->
+        <input type="hidden" name="itemsData" id="itemsData">
+
+        <!-- Save Button -->
+        <div class="col-12 text-center">
+          <button type="submit" class="btn btn-primary mt-3">
+            <i class="fas fa-save me-2"></i> Save Demand Note
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Load header file dynamically
+      fetch("header.html")
+        .then(res => res.text())
+        .then(html => document.getElementById("header-placeholder").innerHTML = html);
+
+      // Setup autocomplete for inputs (ajax.js function handles it)
+      if (typeof setupAutocomplete === "function") {
+        setupAutocomplete("storeIncharge", "storeInchargeSuggestions", "store_incharge");
+        setupAutocomplete("siteName", "siteNameSuggestions", "site_name");
+        setupAutocomplete("siteSupervisor", "siteSupervisorSuggestions", "site_supervisor");
+        setupAutocomplete("siteIncharge", "siteInchargeSuggestions", "site_incharge");
+        setupAutocomplete("contractor", "contractorSuggestions", "contractor");
+        setupAutocomplete("materialCode", "materialCodeSuggestions", "material_code");
+        setupAutocomplete("materialName", "materialNameSuggestions", "material_name");
+      }
+
+      // Restore Site Autofill (when site is chosen, auto fill related fields)
+      document.getElementById("siteName").addEventListener("blur", function() {
+        const siteName = this.value.trim();
+        if (!siteName) return;
+
+        fetch(`fetch_suggestions.php?field=site_details_by_name&q=${encodeURIComponent(siteName)}`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              document.getElementById("siteSupervisor").value = data.siteSupervisor || "";
+              document.getElementById("siteIncharge").value = data.siteIncharge || "";
+              document.getElementById("contractor").value = data.contractor || "";
+              document.getElementById("division").value = data.division || "";
+              document.getElementById("subDivision").value = data.subDivision || "";
+              document.getElementById("sectionName").value = data.section || "";
+              document.getElementById("circle").value = data.circle || "";
+              document.getElementById("location").value = data.location || "";
+            }
+          });
+      });
+
+      // Add Items to Table
+      let itemCount = 0;
+      const addBtn = document.getElementById("additemBtn");
+      const table = document.getElementById("scrapTable");
+
+      addBtn.addEventListener("click", function() {
+        const materialCode = document.getElementById("materialCode").value.trim();
+        const materialName = document.getElementById("materialName").value.trim();
+        const materialUnit = document.getElementById("materialUnit").value.trim();
+        const quantity = document.getElementById("materialQuantity").value.trim();
+        const remarks = document.getElementById("remarks").value.trim();
+
+        if (!materialCode || !materialName || !materialUnit || !quantity) {
+          Swal.fire('❌ Error', 'Please fill all Material fields before adding!', 'error');
+          return;
+        }
+
+        itemCount++;
+        const tableBody = table.querySelector("tbody");
+        const newRow = `
+          <tr>
+            <td>${itemCount}</td>
+            <td>${materialCode}</td>
+            <td>${materialName}</td>
+            <td>${materialUnit}</td>
+            <td>${quantity}</td>
+            <td>${remarks}</td>
+            <td><button type="button" class="btn btn-danger btn-sm removeItem"><i class="fas fa-trash"></i></button></td>
+          </tr>
+        `;
+        tableBody.insertAdjacentHTML("beforeend", newRow);
+        saveItemsData();
+
+        // Clear inputs
+        document.getElementById("materialCode").value = '';
+        document.getElementById("materialName").value = '';
+        document.getElementById("materialUnit").value = '';
+        document.getElementById("materialQuantity").value = '';
+        document.getElementById("remarks").value = '';
+      });
+
+      // Remove row from table
+      table.addEventListener("click", function(e) {
+        if (e.target.closest(".removeItem")) {
+          e.target.closest("tr").remove();
+          let rows = table.querySelectorAll("tbody tr");
+          itemCount = 0;
+          rows.forEach(row => row.cells[0].innerText = ++itemCount);
+          saveItemsData();
+        }
+      });
+
+      // Save table data to hidden input
+      function saveItemsData() {
+        const rows = table.querySelectorAll("tbody tr");
+        let items = [];
+        rows.forEach(row => {
+          const cols = row.querySelectorAll("td");
+          items.push({
+            materialCode: cols[1].innerText,
+            materialName: cols[2].innerText,
+            materialUnit: cols[3].innerText,
+            quantity: cols[4].innerText,
+            remarks: cols[5].innerText
+          });
+        });
+        document.getElementById("itemsData").value = JSON.stringify(items);
+      }
+    });
+  </script>
+</body>
+</html>

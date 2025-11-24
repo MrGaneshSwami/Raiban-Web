@@ -1,122 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Issue Stock - Raiban Electrical Solutions</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Common Stylesheet -->
+  <link rel="stylesheet" href="style.css"/>
+ 
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">
-        <img src="logo.png" alt="Raiban Electrical Solutions" width="40" height="40" class="me-2">
-        Raiban Electrical Solutions
-      </a>
-      <div>
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="purchase.html">Purchase</a></li>
-          <li class="nav-item"><a class="nav-link active" href="issue.html">Issue</a></li>
-          <li class="nav-item"><a class="nav-link" href="return.html">Return</a></li>
-          <li class="nav-item"><a class="nav-link" href="consumption.html">Consumption</a></li>
-          <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
 
-  <!-- Issue Form -->
+  <!-- Header (Navbar) -->
+  <div id="header-placeholder"></div>
+
+  <!-- Page Content -->
   <div class="container my-5">
-    <h2 class="text-center mb-4">📦 Issue Stock to Contractor</h2>
 
+    <!-- Header Row -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+      <a href="Store_dashboard.php" class="btn btn-dark">
+        <i class="fas fa-arrow-left me-2"></i> Back
+      </a>
+      <h2 class="page-title m-0 text-center flex-grow-1">
+        <i class="fas fa-box-open"></i> Issue to Stock Order
+      </h2>
+    </div>
+  
     <!-- Success Message -->
-    <div id="issueSuccess" class="alert alert-success d-none" role="alert">
+    <div id="successMessage" class="alert alert-success d-none" role="alert">
       ✅ Stock issued successfully!
     </div>
 
-    <div class="card p-4 shadow-lg">
-      <form id="issueForm">
-        <!-- Store Incharge -->
-        <div class="mb-3">
-          <label class="form-label">Store Incharge</label>
-          <input type="text" class="form-control" id="storeIncharge" placeholder="Enter Store Incharge Name" required>
+    <!-- Issue Form -->
+    <div class="form-card">
+      <form id="issueForm" method="POST" action="issue_stock.php">
+
+        <!-- General Details -->
+        <div class="row mb-3">
+          <div class="col-md-6 position-relative">
+          <label class="form-label"><i class="fas fa-user-tie me-2"></i>Store Incharge</label>
+          <input type="text" class="form-control" name="storeIncharge" id="storeIncharge" placeholder="Enter Store Incharge Name" required autocomplete="off">
+          <div id="storeInchargeSuggestions" class="list-group position-absolute w-100"></div>
+          </div>
+          <div class="col-md-6 position-relative">
+            <label class="form-label"><i class="fas fa-building me-2"></i>Site Name</label>
+            <input type="text" class="form-control" name="siteName" id="siteName" placeholder="Enter Site Name" autocomplete="off">
+            <div id="siteNameSuggestions" class="list-group position-absolute w-100"></div>
+          </div>
+        </div>
+      
+
+        <div class="row mb-3">
+        <div class="col-md-6 position-relative">
+          <label class="form-label"><i class="fas fa-user-check me-2"></i>Site Incharge</label>
+          <input type="text" class="form-control" name="siteIncharge" id="siteIncharge" placeholder="Enter Site Incharge Name" autocomplete="off">
+          <div id="siteInchargeSuggestions" class="list-group position-absolute w-100"></div>
+        </div>
+        <div class="col-md-6 position-relative">
+          <label class="form-label"><i class="fas fa-user-cog me-2"></i>Site Supervisor</label>
+          <input type="text" class="form-control" name="siteSupervisor" id="siteSupervisor" placeholder="Enter Site Supervisor Name" required autocomplete="off">
+          <div id="siteSupervisorSuggestions" class="list-group position-absolute w-100"></div>
+        </div>
+        </div>
+         
+
+        <div class="row mb-3">
+        <div class="col-md-6 position-relative">
+          <label class="form-label"><i class="fas fa-user me-2"></i>Contractor Name</label>
+          <input type="text" class="form-control" name="contractor" id="contractor" placeholder="Enter Contractor Name" required autocomplete="off">
+          <div id="contractorSuggestions" class="list-group position-absolute w-100"></div>
+        </div>
+        <div class="col-md-6 position-relative">
+          <label class="form-label"><i class="fas fa-circle me-2"></i>Name of Circle</label>
+          <input type="text" class="form-control" name="circle" id="circle" placeholder="Enter Name of Circle" required>
+        </div>
+            </div>
+       
+
+        <div class="row mb-3">
+        <div class="col-md-6 position-relative">
+          <label class="form-label"><i class="fas fa-building me-2"></i>Name of Division</label>
+          <input type="text" class="form-control" name="division" id="division" placeholder="Enter Name of Division" required>
+        </div>
+        <div class="col-md-6 position-relative">
+          <label class="form-label"><i class="fas fa-sitemap me-2"></i>Name of Sub Division</label>
+          <input type="text" class="form-control" name="subDivision" id="subDivision" placeholder="Enter Name of sub division" required>
+        </div>
+            </div>
+        
+        
+       <div class="row mb-3">
+        <div class="col-md-6 position-relative">
+          <label class="form-label"><i class="fas fa-layer-group me-2"></i>Name of Section</label>
+          <input type="text" class="form-control" name="sectionName" id="sectionName" placeholder="Enter Name of Section" required>
+        </div>
+        <div class="col-md-6 position-relative">
+          <label class="form-label"><i class="fas fa-map-marker-alt me-2"></i> Location</label>
+          <input type="text" class="form-control" name="location" id="location" placeholder="Enter Location" required>
+        </div>
+        
+          </div>
+
+          <div class="row mb-3">
+             <div class="col-md-6 position-relative">
+              <label class="form-label"><i class="fas fa-barcode me-2"></i>Material Code</label>
+              <input type="text" class="form-control" id="materialCode" placeholder="Enter Material Code"   autocomplete="off">
+              <div id="materialCodeSuggestions" class="list-group position-absolute w-100"></div>
+            </div>
+              <div class="col-md-6 position-relative">
+              <label class="form-label"><i class="fas fa-box me-2"></i>Material Name</label>
+              <input type="text" class="form-control" id="materialName"  placeholder="Enter Material Name"    autocomplete="off">
+              <div id="materialNameSuggestions" class="list-group position-absolute w-100"></div>
+            </div>
+       
+          </div>
+         
+
+
+          <div class="row mb-3">
+            <div class="col-md-6 position-relative">
+              <label class="form-label"><i class="fas fa-ruler me-2"></i>Material Unit</label>
+              <input type="text" class="form-control" id="materialUnit"  placeholder="Enter Material Unit"  readonly>
+          </div>
+             <div class="col-md-6 position-relative">
+        <label class="form-label"><i class="fas fa-sort-numeric-up me-2"></i>Material Quantity</label>
+        <input type="number" class="form-control" id="materialQuantity" placeholder="Enter Material Quantity">
+      </div>
+           
+          </div>
+
+
+            <div class="row mb-3">
+               <div class="col-md-6 position-relative">
+                 <label class="form-label"><i class="fas fa-money-bill me-2"></i>Rate</label>
+                 <input type="number" class="form-control" id="rate" name="rate" placeholder="Enter Amount" readonly>
+            </div>
+            <div class="col-md-6 position-relative">
+                <label class="form-label"><i class="fas fa-dollar-sign me-2"></i>Total Price</label>
+                <input type="number" step="0.01" class="form-control" id="totalPrice" placeholder="Enter Total Price"  readonly >
+            </div>
+          </div>
+     
+            <div class="row mb-3">
+            <div class="col-md-12 d-flex align-items-end">
+              <button type="button" id="addItemBtn" class="btn btn-success w-100">
+                <i class="fas fa-plus-circle me-2"></i> Add Item
+              </button>
+            </div>
+          </div>
+        
+         
+
+        <!-- Items Table -->
+        <div class="table-responsive mb-3">
+          <table class="table table-bordered text-center" id="itemsTable">
+            <thead class="table-light">
+              <tr>
+                <th>Sr.No</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Unit</th>
+                <th>Qty</th>
+                <th>Total Price</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
         </div>
 
-        <!-- Site Incharge -->
-        <div class="mb-3">
-          <label class="form-label">Site Incharge</label>
-          <input type="text" class="form-control" id="siteIncharge" placeholder="Enter Site Incharge Name" required>
-        </div>
+          <!-- Final Cost Display -->
+          <div class="mb-3 text-end">
+            <h5>Final Cost: ₹<span id="finalCost">0.00</span></h5>
+          </div>
+      
 
-        <!-- Contractor Name -->
-        <div class="mb-3">
-          <label class="form-label">Contractor Name</label>
-          <input type="text" class="form-control" id="contractor" placeholder="Enter Contractor Name" required>
-        </div>
+        <!-- Hidden Field for Items -->
+  <input type="hidden" name="itemsData" id="itemsData">
 
-        <!-- Location -->
-        <div class="mb-3">
-          <label class="form-label">Location</label>
-          <input type="text" class="form-control" id="location" placeholder="Enter Location" required>
+        <!-- Submit Button -->
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary mt-3">
+            <i class="fas fa-box me-2"></i> Issue Stock
+          </button>
         </div>
-
-        <!-- Sub Division -->
-        <div class="mb-3">
-          <label class="form-label">Sub Division</label>
-          <input type="text" class="form-control" id="subDivision" placeholder="Enter Sub Division" required>
-        </div>
-
-        <!-- Division -->
-        <div class="mb-3">
-          <label class="form-label">Division</label>
-          <input type="text" class="form-control" id="division" placeholder="Enter Division" required>
-        </div>
-
-        <!-- Circle -->
-        <div class="mb-3">
-          <label class="form-label">Circle</label>
-          <input type="text" class="form-control" id="circle" placeholder="Enter Circle" required>
-        </div>
-
-        <!-- Material -->
-        <div class="mb-3">
-          <label class="form-label">Material Name</label>
-          <input type="text" class="form-control" id="material" placeholder="Enter Material Name" required>
-        </div>
-
-        <!-- Unit -->
-        <div class="mb-3">
-          <label class="form-label">Unit</label>
-          <select class="form-select" id="unit" required>
-            <option value="">-- Select Unit --</option>
-            <option value="pcs">Pieces</option>
-            <option value="mtr">Meter</option>
-            <option value="kg">Kilogram</option>
-            <option value="ltr">Litre</option>
-          </select>
-        </div>
-
-        <!-- Quantity -->
-        <div class="mb-3">
-          <label class="form-label">Quantity</label>
-          <input type="number" class="form-control" id="quantity" required>
-        </div>
-
-        <!-- Date -->
-        <div class="mb-3">
-          <label class="form-label">Date</label>
-          <input type="date" class="form-control" id="date" required>
-        </div>
-
-        <button type="submit" class="btn btn-success w-100">Issue Stock</button>
       </form>
     </div>
   </div>
 
-  <!-- External Script -->
-  <script src="script.js"></script>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="ajax.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (typeof setupAutocomplete === "function") {
+        setupAutocomplete("siteName", "siteNameSuggestions", "site_name");
+      }
+    });
+  </script>
+  <script>
+    // Load navbar from header.html into header-placeholder
+    document.addEventListener("DOMContentLoaded", function() {
+      fetch("header.html")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("header-placeholder").innerHTML = data;
+        });
+    });
+  </script>
+  
+   <script>
+  let items = [];
+
+
+  // Auto-calc total price on quantity change
+  document.getElementById("materialQuantity").addEventListener("input", function () {
+    const qty = parseFloat(this.value) || 0;
+    const rate = parseFloat(document.getElementById("rate").value) || 0;
+    document.getElementById("totalPrice").value = (qty * rate).toFixed(2);
+  });
+
+  // Add Item
+  document.getElementById("addItemBtn").addEventListener("click", () => {
+    const code = document.getElementById("materialCode").value;
+    const name = document.getElementById("materialName").value;
+    const unit = document.getElementById("materialUnit").value;
+    const qty = document.getElementById("materialQuantity").value;
+    const total = document.getElementById("totalPrice").value;
+    const rate = document.getElementById("rate").value;
+
+    if (!code || !name || !qty) {
+      Swal.fire("Error", "Please fill at least Code, Name, and Quantity", "error");
+      return;
+    }
+
+    const item = { code, name, unit, qty, total, rate };
+    items.push(item);
+    renderItems();
+    clearInputs();
+  document.getElementById("rate").value = "";
+  });
+
+  // Render Items
+  function renderItems() {
+    const tbody = document.querySelector("#itemsTable tbody");
+    tbody.innerHTML = "";
+    let finalCost = 0;
+    items.forEach((item, i) => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${i+1}</td>
+          <td>${item.code}</td>
+          <td>${item.name}</td>
+          <td>${item.unit}</td>
+          <td>${item.qty}</td>
+          <td>₹${item.total}</td>
+          <td><button type="button" class="btn btn-danger btn-sm" onclick="removeItem(${i})"><i class="fas fa-trash"></i></button></td>
+        </tr>`;
+      finalCost += parseFloat(item.total);
+    });
+    document.getElementById("itemsData").value = JSON.stringify(items);
+    document.getElementById("finalCost").textContent = finalCost.toFixed(2);
+  }
+
+  // Clear inputs
+  function clearInputs() {
+    ["materialCode","materialName","materialUnit","materialQuantity","totalPrice"].forEach(id => document.getElementById(id).value = "");
+    document.getElementById("totalPrice").dataset.price = "";
+  }
+
+  // Remove Item
+  function removeItem(i) {
+    items.splice(i,1);
+    renderItems();
+  }
+</script>
+
+ 
 </body>
 </html>

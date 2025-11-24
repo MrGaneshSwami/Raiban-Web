@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Contractor - Raiban Electrical Solutions</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Common Stylesheet -->
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<!-- CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/css/intlTelInput.css">
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/intlTelInput.min.js"></script>
+
+<body>
+  <!-- Navbar -->
+  <div id="header-placeholder"></div>
+  
+  <!-- Header Bar -->
+  <div class="header-bar d-flex justify-content-between align-items-center">
+  <!-- Left: Back Button -->
+ <div>
+      <a href="Forms.html" class="btn btn-dark">
+        <i class="fas fa-arrow-left me-2"></i> Back
+      </a>
+    </div>
+
+
+  <!-- Center: Title -->
+  <div class="flex-grow-1 text-center">
+    <h5 class="page-title mb-0">
+      <i class="bi bi-person-badge me-2"></i>Add Contractor Information
+    </h5>
+  </div>
+</div>
+
+  <!-- Contractor Form -->
+  <main class="container my-2">
+    <div class="card shadow border-0 rounded-3">
+      <div class="card-header bg-navy text-navy">
+        <h5 class="mb-0"><i class="bi bi-person-badge me-2"></i>Add Contractor Information</h5>
+      </div>
+      <div class="form-card p-3">
+        <form action="save_contractor.php" method="POST">
+          
+          <!-- Name & Email -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label"><i class="bi bi-person-fill me-1"></i>Full Name</label>
+              <input type="text" class="form-control" name="name" placeholder="Enter full name" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><i class="bi bi-envelope-fill me-1"></i>Email</label>
+              <input type="email" class="form-control" name="email" placeholder="Enter email address" required>
+            </div>
+          </div>
+
+          <!-- Phone & Alternate Phone -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label"><i class="bi bi-telephone-fill me-1"></i>Phone</label>
+              <input type="text" class="form-control" name="phone" placeholder="Primary phone number" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><i class="bi bi-telephone me-1"></i>Alternate Phone</label>
+              <input type="text" class="form-control" name="alt_phone" placeholder="Alternate contact number">
+            </div>
+          </div>
+
+          <!-- PAN & Aadhar -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label"><i class="bi bi-credit-card-2-front me-1"></i>PAN No</label>
+              <input type="text" class="form-control" name="pan_no" placeholder="Enter PAN number">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><i class="bi bi-person-vcard me-1"></i>Aadhar No</label>
+              <input type="text" class="form-control" name="aadhar_no" placeholder="Enter Aadhar number">
+            </div>
+          </div>
+
+          <!-- Bank Name & Branch -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label"><i class="bi bi-bank me-1"></i>Bank Name</label>
+              <input type="text" class="form-control" name="bank_name" placeholder="Enter bank name">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><i class="bi bi-building me-1"></i>Bank Branch</label>
+              <input type="text" class="form-control" name="bank_branch" placeholder="Enter bank branch">
+            </div>
+          </div>
+ś
+          <!-- Bank Account No & IFSC Code -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label"><i class="bi bi-credit-card me-1"></i>Bank Account No</label>
+              <input type="text" class="form-control" name="account_no" placeholder="Enter account number">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><i class="bi bi-key-fill me-1"></i>IFSC Code</label>
+              <input type="text" class="form-control" name="ifsc_code" placeholder="Enter IFSC code">
+            </div>
+          </div>
+
+          <!-- GST No & Address -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label"><i class="bi bi-file-earmark-text-fill me-1"></i>GST No</label>
+              <input type="text" class="form-control" name="gst_no" placeholder="Enter GST number">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><i class="bi bi-house-door-fill me-1"></i>Address</label>
+              <textarea class="form-control" name="address" rows="1" placeholder="Enter contractor's address"></textarea>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-save mt-3">
+              <i class="fas fa-save me-2"></i> Save Contractor Information
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bootstrap & Common JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

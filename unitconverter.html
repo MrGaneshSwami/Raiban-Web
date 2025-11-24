@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Converter - Raiban Electrical Solutions</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Common Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div id="header-placeholder"></div>
+
+  <!-- Header Bar -->
+  <div class="header-bar d-flex justify-content-between align-items-center p-3 bg-light border-bottom">
+    <div class="d-flex align-items-center">
+      <button class="btn btn-secondary btn-sm me-3" onclick="history.back()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      <h2 class="mb-0"><i class="fas fa-calculator me-2"></i> Unit Converter</h2>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container my-5">
+    <div class="card shadow-lg border-0 rounded-3 p-4" style="background: #f8f9fa;">
+      <form id="converterForm">
+        <div class="row g-3">
+          <!-- Value Input -->
+          <div class="col-12">
+            <label for="value" class="form-label fw-semibold">Enter Value</label>
+            <input type="number" id="value" class="form-control" placeholder="Enter number" required>
+          </div>
+
+          <!-- From Unit -->
+          <div class="col-md-6">
+            <label for="fromUnit" class="form-label fw-semibold">From</label>
+            <select id="fromUnit" class="form-select">
+              <option value="meter">Meters</option>
+              <option value="kilometer">Kilometers</option>
+              <option value="feet">Feet</option>
+              <option value="inch">Inches</option>
+              <option value="kg">Kilograms</option>
+              <option value="gram">Grams</option>
+              <option value="pound">Pounds</option>
+              <option value="CMT">CMT</option>
+              <option value="RMT">RMT</option>
+              <option value="liter">Litres</option>
+              <option value="ml">Millilitres</option>
+              <option value="ls">Lump Sum (ls)</option>
+              <option value="pcs">Numbers</option>
+            </select>
+          </div>
+
+          <!-- To Unit -->
+          <div class="col-md-6">
+            <label for="toUnit" class="form-label fw-semibold">To</label>
+            <select id="toUnit" class="form-select">
+              <option value="meter">Meters</option>
+              <option value="kilometer">Kilometers</option>
+              <option value="feet">Feet</option>
+              <option value="inch">Inches</option>
+              <option value="kg">Kilograms</option>
+              <option value="gram">Grams</option>
+              <option value="pound">Pounds</option>
+              <option value="CMT">CMT</option>
+              <option value="RMT">RMT</option>
+              <option value="liter">Litres</option>
+              <option value="ml">Millilitres</option>
+              <option value="ls">Lump Sum (ls)</option>
+              <option value="pcs">Numbers</option>
+            </select>
+          </div>
+
+          <!-- Convert Button -->
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary w-100">
+              <i class="fas fa-exchange-alt me-2"></i> Convert
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Result -->
+      <div class="mt-4 text-center">
+        <h5 id="result" class="text-success fw-bold"></h5>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
